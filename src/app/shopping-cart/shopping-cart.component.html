@@ -1,0 +1,15 @@
+<p>ShoppingList id: {{ nonFinishedShoppingCart.id }} - name: {{ nonFinishedShoppingCart.name }} - Total of Items: {{ nonFinishedShoppingCart.items.length }} </p>
+<div *ngFor="let cartItem of nonFinishedShoppingCart.items">
+    <p>
+        {{ cartItem.id }} - 
+        {{ cartItem.product.name }}
+        {{ cartItem.quantity }}
+        {{ cartItem.price }}
+        {{ cartItem.picked }}
+    </p>
+</div>
+<div class="example-button-container">
+    <button mat-fab color="accent" aria-label="Add item to list">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
