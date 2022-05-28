@@ -45,6 +45,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 // CDK Accordion
 import { CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // FlexLayout
 
 
@@ -88,7 +89,9 @@ import { CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
@@ -128,7 +131,9 @@ import { CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
     MatSortModule,
     MatTableModule,
     CdkAccordionModule,
-    CdkAccordionItem
+    CdkAccordionItem,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

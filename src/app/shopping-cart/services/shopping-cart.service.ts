@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ItemCart } from 'src/app/shared/models/item-cart';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
 import { environment } from 'src/environments/environment';
 
@@ -19,5 +20,11 @@ export class ShoppingCartService {
 
   getAll(): Observable<Array<ShoppingCart>> {
     return this.httpClient.get<Array<ShoppingCart>>(`${API_ENDPOINT}/shoppingCart`);
+  }
+
+  addCartItem(shoppingCart: ShoppingCart, item: ItemCart): Observable<any> {
+    console.log(shoppingCart);
+    shoppingCart.items.push(item);
+    return this.httpClient.put(`${API_ENDPOINT}/shoppingCart/${shoppingCart.id}`, shoppingCart);
   }
 }
