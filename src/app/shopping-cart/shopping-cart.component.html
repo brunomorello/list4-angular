@@ -4,7 +4,7 @@
             <mat-expansion-panel class="list-expansion">
                 <mat-expansion-panel-header class="example-headers-align">
                     <mat-panel-title>
-                        <div>
+                        <div *ngIf="allItemsPickedUp()">
                             <button mat-raised-button color="primary">Done</button>
                         </div>
                         {{ nonFinishedShoppingCart.name }} 
@@ -27,13 +27,15 @@
                         </mat-checkbox>
                     </mat-list-item>
                 </mat-list>
+                <div class="add-item-button example-button-container">
+                    <button mat-fab color="accent" 
+                        align="ënd"
+                        aria-label="Add item to list"
+                        (click)="openDialog(nonFinishedShoppingCart)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
-</div>
-
-<div class="add-item-button example-button-container">
-    <button mat-fab color="accent" aria-label="Add item to list">
-        <mat-icon>add</mat-icon>
-    </button>
 </div>

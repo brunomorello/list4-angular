@@ -22,8 +22,9 @@ export class ShoppingCartService {
     return this.httpClient.get<Array<ShoppingCart>>(`${API_ENDPOINT}/shoppingCart`);
   }
 
-  addCartItem(shoppingCart: ShoppingCart, item: ItemCart): void {
+  addCartItem(shoppingCart: ShoppingCart, item: ItemCart): Observable<any> {
+    console.log(shoppingCart);
     shoppingCart.items.push(item);
-    this.httpClient.put(`${API_ENDPOINT}/shoppingCart/${shoppingCart.id}`, shoppingCart);
+    return this.httpClient.put(`${API_ENDPOINT}/shoppingCart/${shoppingCart.id}`, shoppingCart);
   }
 }
