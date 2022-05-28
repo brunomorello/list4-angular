@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ItemCart } from '../shared/models/item-cart';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 
 @Component({
@@ -25,4 +26,7 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
+  public pickUpItem(cartItem: ItemCart) {
+    console.log(cartItem);
+  }
 }

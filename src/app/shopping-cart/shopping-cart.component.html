@@ -1,14 +1,38 @@
-<p>ShoppingList id: {{ nonFinishedShoppingCart.id }} - name: {{ nonFinishedShoppingCart.name }} - Total of Items: {{ nonFinishedShoppingCart.items.length }} </p>
-<div *ngFor="let cartItem of nonFinishedShoppingCart.items">
-    <p>
-        {{ cartItem.id }} - 
-        {{ cartItem.product.name }}
-        {{ cartItem.quantity }}
-        {{ cartItem.price }}
-        {{ cartItem.picked }}
-    </p>
+<div fxLayout="column" fxLayoutAlign="center center">
+    <div class="container">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel class="list-expansion">
+                <mat-expansion-panel-header class="example-headers-align">
+                    <mat-panel-title>
+                        <div>
+                            <button mat-raised-button color="primary">Done</button>
+                        </div>
+                        {{ nonFinishedShoppingCart.name }} 
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Total of Items: {{ nonFinishedShoppingCart.items.length }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <mat-list role="list" >
+                    <mat-list-item 
+                            role="listitem" 
+                            *ngFor="let cartItem of nonFinishedShoppingCart.items">
+                        <mat-checkbox [checked]="cartItem.picked"
+                            (change)="pickUpItem(cartItem)">
+                            {{ cartItem.product.name }}
+                            {{ cartItem.quantity }}
+                            {{ cartItem.price }}
+                            {{ cartItem.picked }}
+                        </mat-checkbox>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>
-<div class="example-button-container">
+
+<div class="add-item-button example-button-container">
     <button mat-fab color="accent" aria-label="Add item to list">
         <mat-icon>add</mat-icon>
     </button>
