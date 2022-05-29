@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemCart } from '../shared/models/item-cart';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { RemoveItemComponent } from './cart-item/remove-item/remove-item.component';
 import { ShoppingCartService } from './services/shopping-cart.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  public pickUpItem(cartItem: ItemCart) {
+  public pickUpItem(cartItem: ItemCart): void {
     const itemPos = this.nonFinishedShoppingCart.items.indexOf(cartItem)
     if (~itemPos) {
       cartItem.picked = !cartItem.picked;
@@ -42,18 +43,22 @@ export class ShoppingCartComponent implements OnInit {
           error: (err) => console.error(err),
           complete: () => console.log('completed')
         });
-    }
-
-    console.log(cartItem);
-    console.log(this.nonFinishedShoppingCart);
-    
+    }    
   }
 
-  openDialog(shoppingCart: ShoppingCart) {
+  public removeItem(cartItem: ItemCart): void {
+    const data = {
+      shoppingList: this.nonFinishedShoppingCart,
+      item: cartItem
+    };
+    this.dialog.open(RemoveItemComponent, { data });
+  }
+
+  public openDialog(shoppingCart: ShoppingCart): void {
     const dialogRef = this.dialog.open(CartItemComponent, { data: shoppingCart });
   }
 
-  allItemsPickedUp() {
+  public allItemsPickedUp(): boolean {
     return !this.nonFinishedShoppingCart.items.
       find((item: ItemCart) => item.picked == false);
   }

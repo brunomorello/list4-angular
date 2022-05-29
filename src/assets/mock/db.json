@@ -23,7 +23,7 @@
           },
           "quantity": 1,
           "price": 0.99,
-          "picked": true
+          "picked": false
         },
         {
           "id": 3,
@@ -40,30 +40,10 @@
           "id": 0,
           "product": {
             "id": 0,
-            "name": "12321"
-          },
-          "quantity": "12312",
-          "price": "123",
-          "picked": false
-        },
-        {
-          "id": 0,
-          "product": {
-            "id": 0,
             "name": "beans"
           },
           "quantity": "1",
           "price": "0.99",
-          "picked": false
-        },
-        {
-          "id": 0,
-          "product": {
-            "id": 0,
-            "name": "tst"
-          },
-          "quantity": "123",
-          "price": "123",
           "picked": false
         },
         {
