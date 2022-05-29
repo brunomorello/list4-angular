@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemCart } from '../shared/models/item-cart';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { ShoppingCartService } from './services/shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -16,7 +17,8 @@ export class ShoppingCartComponent implements OnInit {
   nonFinishedShoppingCart!: ShoppingCart
 
   constructor(private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private shoppingCartService: ShoppingCartService) {
     this.displayedColumns = [
       'product', 'quantity', 'price', 'picked'
     ];
@@ -30,6 +32,18 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public pickUpItem(cartItem: ItemCart) {
+    const itemPos = this.nonFinishedShoppingCart.items.indexOf(cartItem)
+    if (~itemPos) {
+      cartItem.picked = !cartItem.picked;
+      this.nonFinishedShoppingCart.items[itemPos] = cartItem;
+      this.shoppingCartService.updateShoppingList(this.nonFinishedShoppingCart)
+        .subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.error(err),
+          complete: () => console.log('completed')
+        });
+    }
+
     console.log(cartItem);
     console.log(this.nonFinishedShoppingCart);
     
