@@ -33,11 +33,11 @@ export class CartItemComponent implements OnInit {
   }
 
   saveItem(): void {
-    this.shoppingCartService.addCartItem(this.data, this.cartItem).subscribe(() => {
-      this.dialogRef.close();
-      },
-      (err) => console.error(err)
-    );
+    this.shoppingCartService.addCartItem(this.data, this.cartItem)
+      .subscribe({
+        next: (res) => this.dialogRef.close(),
+        error: (err) => console.error(err)
+      });
   }
 
 }
