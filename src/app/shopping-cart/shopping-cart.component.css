@@ -23,3 +23,12 @@
 mat-panel-title > div > button {
     margin-right: 7px;
 }
+
+.example-margin {
+    margin: 0 12px;
+}
+
+.btn-delete-cart-item {
+    display: flex;
+    align-items: flex-end;
+}

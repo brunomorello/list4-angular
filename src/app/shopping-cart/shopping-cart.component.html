@@ -18,13 +18,19 @@
                     <mat-list-item 
                             role="listitem" 
                             *ngFor="let cartItem of nonFinishedShoppingCart.items">
-                        <mat-checkbox [checked]="cartItem.picked"
+                        <mat-checkbox class="example-margin" [checked]="cartItem.picked"
                             (change)="pickUpItem(cartItem)">
+                        </mat-checkbox>
                             {{ cartItem.product.name }}
                             {{ cartItem.quantity }}
                             {{ cartItem.price }}
                             {{ cartItem.picked }}
-                        </mat-checkbox>
+                        <button mat-icon-button color="warn" 
+                            (click)="removeItem(cartItem)"
+                            class="btn-delete-cart-item"
+                            aria-label="Remove Cart Item">
+                            <mat-icon>clear</mat-icon>
+                        </button>
                     </mat-list-item>
                 </mat-list>
                 <div class="add-item-button example-button-container">
