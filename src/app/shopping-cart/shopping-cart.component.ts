@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemCart } from '../shared/models/item-cart';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { CartItemDialogDto } from './cart-item/model/cart-item-dialog-dto';
 import { RemoveItemComponent } from './cart-item/remove-item/remove-item.component';
 import { ShoppingCartService } from './services/shopping-cart.service';
 
@@ -47,15 +48,28 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public removeItem(cartItem: ItemCart): void {
-    const data = {
+    const data: CartItemDialogDto = {
       shoppingList: this.nonFinishedShoppingCart,
       item: cartItem
-    };
+      
+    }
+    data.shoppingList = this.nonFinishedShoppingCart
     this.dialog.open(RemoveItemComponent, { data });
   }
 
-  public openDialog(shoppingCart: ShoppingCart): void {
-    const dialogRef = this.dialog.open(CartItemComponent, { data: shoppingCart });
+  public addItem(): void {
+    const data: CartItemDialogDto = {
+      shoppingList: this.nonFinishedShoppingCart
+    };
+    this.dialog.open(CartItemComponent, { data });
+  }
+
+  public editItem(cartItem: ItemCart): void {
+    const data: CartItemDialogDto = {
+      shoppingList: this.nonFinishedShoppingCart,
+      item: cartItem
+    };
+    this.dialog.open(CartItemComponent, { data })
   }
 
   public allItemsPickedUp(): boolean {

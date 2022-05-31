@@ -23,12 +23,15 @@ export class ShoppingCartService {
   }
 
   updateShoppingList(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    shoppingCart.items = shoppingCart.items.map(this.setItemCartId);
     return this.httpClient.put<ShoppingCart>(`${API_ENDPOINT}/shoppingCart/${shoppingCart.id}`, shoppingCart);
   }
 
-  addCartItem(shoppingCart: ShoppingCart, item: ItemCart): Observable<ShoppingCart> {
-    console.log(shoppingCart);
-    shoppingCart.items.push(item);
-    return this.updateShoppingList(shoppingCart);
+  // TODO - use backend to handle this
+  private setItemCartId(itemCart: ItemCart): ItemCart {
+    itemCart.id = itemCart.id === 0 ? Date.now() : itemCart.id;
+    itemCart.product.id = itemCart.product.id === 0 ? Date.now() : itemCart.product.id;
+    return itemCart;
   }
+
 }
