@@ -36,6 +36,11 @@
         </mat-form-field>
     </section>
     <section>
-        <button mat-raised-button color="primary" [disabled]="cartItemForm.invalid">Login</button>
+        <button mat-raised-button color="primary" 
+            *ngIf="cartItem.id === 0"
+            [disabled]="cartItemForm.invalid">Add</button>
+        <button mat-raised-button color="primary" 
+            *ngIf="cartItem.id !== 0"
+            [disabled]="cartItemForm.invalid">Update</button>
     </section>
 </form>

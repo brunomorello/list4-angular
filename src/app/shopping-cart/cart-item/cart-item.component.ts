@@ -25,19 +25,53 @@ export class CartItemComponent implements OnInit {
   }
 
   constructor(private shoppingCartService: ShoppingCartService,
-      @Inject(MAT_DIALOG_DATA) public data: ShoppingCart,
+      @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<CartItemComponent>) {
   }
   
   ngOnInit(): void {
+    this.cartItem = this.data.item ? this.data.item : this.cartItem;
   }
 
   saveItem(): void {
-    this.shoppingCartService.addCartItem(this.data, this.cartItem)
+    const shoppingList = this.data.shoppingList;
+    const itemCart = this.data.item;
+    
+    if (this.cartItem.product.id === 0) {
+      this.cartItem.product.id 
+      shoppingList.items.push(this.cartItem);
+    }
+
+    if (itemCart) {
+      const pos = this.getCartItemPos(itemCart, shoppingList);
+      if (pos >= 0) {
+        shoppingList.items[pos] = itemCart;
+      }
+    }
+
+    this.shoppingCartService.updateShoppingList(shoppingList)
       .subscribe({
-        next: (res) => this.dialogRef.close(),
+        next: (res) => {
+          console.log(res);
+          this.dialogRef.close()
+        },
         error: (err) => console.error(err)
       });
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+  private getCartItemPos(itemCart: ItemCart, shoppingCart: ShoppingCart): number {
+    return shoppingCart.items.findIndex((value: ItemCart) => {
+      value.product.id === itemCart.product.id &&
+      value.product.name === itemCart.product.name &&
+      value.picked === itemCart.picked &&
+      value.price === itemCart.price &&
+      value.quantity === itemCart.quantity &&
+      value.id === itemCart.id
+    });
   }
 
 }

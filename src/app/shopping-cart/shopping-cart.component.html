@@ -15,16 +15,17 @@
                 </mat-expansion-panel-header>
                 
                 <mat-list role="list" >
-                    <mat-list-item 
-                            role="listitem" 
+                <mat-list-item role="listitem" 
                             *ngFor="let cartItem of nonFinishedShoppingCart.items">
                         <mat-checkbox class="example-margin" [checked]="cartItem.picked"
                             (change)="pickUpItem(cartItem)">
                         </mat-checkbox>
+                        <div (click)="editItem(cartItem)">
                             {{ cartItem.product.name }}
                             {{ cartItem.quantity }}
                             {{ cartItem.price }}
                             {{ cartItem.picked }}
+                        </div>
                         <button mat-icon-button color="warn" 
                             (click)="removeItem(cartItem)"
                             class="btn-delete-cart-item"
@@ -35,9 +36,9 @@
                 </mat-list>
                 <div class="add-item-button example-button-container">
                     <button mat-fab color="accent" 
-                        align="ënd"
+                        align="end"
                         aria-label="Add item to list"
-                        (click)="openDialog(nonFinishedShoppingCart)">
+                        (click)="addItem()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
