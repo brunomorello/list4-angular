@@ -1,6 +1,10 @@
 .list-expansion {
     max-width: 50%;
 }
+
+.shopping-cart-list {
+    margin: 5px;
+}
  
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {

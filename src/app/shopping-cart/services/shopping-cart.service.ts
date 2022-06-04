@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemCart } from 'src/app/shared/models/item-cart';
@@ -14,12 +14,22 @@ export class ShoppingCartService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getNonFinished(): Observable<ShoppingCart> {
-    return this.httpClient.get<ShoppingCart>(`${API_ENDPOINT}/shoppingCart/1`);
+  getNonFinished(): Observable<Array<ShoppingCart>> {
+    const params = new HttpParams();
+    params.set("finished", false);
+    return this.httpClient.get<Array<ShoppingCart>>(`${API_ENDPOINT}/shoppingCart/`, { params: params });
   }
 
   getAll(): Observable<Array<ShoppingCart>> {
     return this.httpClient.get<Array<ShoppingCart>>(`${API_ENDPOINT}/shoppingCart`);
+  }
+
+  getById(id: number): Observable<ShoppingCart> {
+    return this.httpClient.get<ShoppingCart>(`${API_ENDPOINT}/shoppingCart/${id}`);
+  }
+
+  createShoppingList(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    return this.httpClient.post<ShoppingCart>(`${API_ENDPOINT}/shoppingCart`, shoppingCart);
   }
 
   updateShoppingList(shoppingCart: ShoppingCart): Observable<ShoppingCart> {

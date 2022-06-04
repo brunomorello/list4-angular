@@ -11,11 +11,11 @@ import { ShoppingCartService } from './services/shopping-cart.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartResolver implements Resolve<ShoppingCart> {
+export class ShoppingCartResolver implements Resolve<Array<ShoppingCart>> {
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ShoppingCart> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<ShoppingCart>> {
     return this.shoppingCartService.getNonFinished();
   }
 }

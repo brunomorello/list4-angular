@@ -7,7 +7,12 @@ const routes: Routes = [
   { path: '', component: ShoppingCartComponent,
     resolve: {
       shoppingCart: ShoppingCartResolver
-    } }
+    } 
+  },
+  {
+    path: ':shoppingListId',
+    component: ShoppingCartComponent
+  }
 ];
 
 @NgModule({

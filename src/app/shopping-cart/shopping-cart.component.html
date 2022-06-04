@@ -1,33 +1,33 @@
 <div fxLayout="column" fxLayoutAlign="center center">
     <div class="container">
-        <mat-accordion class="example-headers-align" multi>
+        <mat-accordion *ngFor="let shoppingCart of listShoppingCart" class="shopping-cart-list" multi>
             <mat-expansion-panel class="list-expansion">
                 <mat-expansion-panel-header class="example-headers-align">
                     <mat-panel-title>
-                        <div *ngIf="allItemsPickedUp()">
-                            <button mat-raised-button color="primary">Done</button>
+                        <div *ngIf="allItemsPickedUp(shoppingCart) && shoppingCart.items.length !== 0">
+                            <button (click)="finishShoppingList(shoppingCart)" mat-raised-button color="primary">Done</button>
                         </div>
-                        {{ nonFinishedShoppingCart.name }} 
+                        {{ shoppingCart.name }} 
                     </mat-panel-title>
                     <mat-panel-description>
-                        Total of Items: {{ nonFinishedShoppingCart.items.length }}
+                        Total of Items: {{ shoppingCart.items.length }}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 
                 <mat-list role="list" >
                 <mat-list-item role="listitem" 
-                            *ngFor="let cartItem of nonFinishedShoppingCart.items">
+                            *ngFor="let cartItem of shoppingCart.items">
                         <mat-checkbox class="example-margin" [checked]="cartItem.picked"
-                            (change)="pickUpItem(cartItem)">
+                            (change)="pickUpItem(cartItem, shoppingCart)">
                         </mat-checkbox>
-                        <div (click)="editItem(cartItem)">
+                        <div (click)="editItem(cartItem, shoppingCart)">
                             {{ cartItem.product.name }}
                             {{ cartItem.quantity }}
                             {{ cartItem.price }}
                             {{ cartItem.picked }}
                         </div>
                         <button mat-icon-button color="warn" 
-                            (click)="removeItem(cartItem)"
+                            (click)="removeItem(cartItem, shoppingCart)"
                             class="btn-delete-cart-item"
                             aria-label="Remove Cart Item">
                             <mat-icon>clear</mat-icon>
@@ -38,7 +38,7 @@
                     <button mat-fab color="accent" 
                         align="end"
                         aria-label="Add item to list"
-                        (click)="addItem()">
+                        (click)="addItem(shoppingCart)">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
