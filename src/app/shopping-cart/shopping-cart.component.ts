@@ -38,6 +38,7 @@ export class ShoppingCartComponent implements OnInit {
         this.listShoppingCart = this.activatedRoute.snapshot.data['shoppingCart'];
       }
     });
+    console.log(this.listShoppingCart);
   }
 
   public pickUpItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
@@ -84,6 +85,11 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public finishShoppingList(shoppingCart: ShoppingCart): void {
-    
+    shoppingCart.finished = true;
+    this.shoppingCartService.updateShoppingList(shoppingCart)
+      .subscribe({
+        next: (value: ShoppingCart) => alert(`List ${value.name} finished`),
+        error: (err) => console.error(err)
+      })
   }
 }

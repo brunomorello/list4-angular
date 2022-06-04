@@ -15,8 +15,8 @@ export class ShoppingCartService {
   constructor(private httpClient: HttpClient) { }
 
   getNonFinished(): Observable<Array<ShoppingCart>> {
-    const params = new HttpParams();
-    params.set("finished", false);
+    const params = new HttpParams()
+      .set("finished", "false");
     return this.httpClient.get<Array<ShoppingCart>>(`${API_ENDPOINT}/shoppingCart/`, { params: params });
   }
 
