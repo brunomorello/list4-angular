@@ -16,7 +16,7 @@ import { ShoppingCartService } from './services/shopping-cart.service';
 export class ShoppingCartComponent implements OnInit {
 
   displayedColumns: string[];
-  nonFinishedShoppingCart!: ShoppingCart
+  listShoppingCart: Array<ShoppingCart> = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -28,17 +28,24 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((param) => {
-      this.nonFinishedShoppingCart = this.activatedRoute.snapshot.data['shoppingCart'];
-      console.log(this.nonFinishedShoppingCart);
+      if (param['shoppingListId']) {
+        this.shoppingCartService.getById(param['shoppingListId'])
+          .subscribe({
+            next: (value: ShoppingCart) => this.listShoppingCart.push(value),
+            error: (err) => console.error(err)
+          });
+      } else {
+        this.listShoppingCart = this.activatedRoute.snapshot.data['shoppingCart'];
+      }
     });
   }
 
-  public pickUpItem(cartItem: ItemCart): void {
-    const itemPos = this.nonFinishedShoppingCart.items.indexOf(cartItem)
+  public pickUpItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
+    const itemPos = shoppingCart.items.indexOf(cartItem)
     if (~itemPos) {
       cartItem.picked = !cartItem.picked;
-      this.nonFinishedShoppingCart.items[itemPos] = cartItem;
-      this.shoppingCartService.updateShoppingList(this.nonFinishedShoppingCart)
+      shoppingCart.items[itemPos] = cartItem;
+      this.shoppingCartService.updateShoppingList(shoppingCart)
         .subscribe({
           next: (res) => console.log(res),
           error: (err) => console.error(err),
@@ -47,33 +54,36 @@ export class ShoppingCartComponent implements OnInit {
     }    
   }
 
-  public removeItem(cartItem: ItemCart): void {
+  public removeItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
     const data: CartItemDialogDto = {
-      shoppingList: this.nonFinishedShoppingCart,
+      shoppingList: shoppingCart,
       item: cartItem
       
     }
-    data.shoppingList = this.nonFinishedShoppingCart
     this.dialog.open(RemoveItemComponent, { data });
   }
 
-  public addItem(): void {
+  public addItem(shoppingCart: ShoppingCart): void {
     const data: CartItemDialogDto = {
-      shoppingList: this.nonFinishedShoppingCart
+      shoppingList: shoppingCart
     };
     this.dialog.open(CartItemComponent, { data });
   }
 
-  public editItem(cartItem: ItemCart): void {
+  public editItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
     const data: CartItemDialogDto = {
-      shoppingList: this.nonFinishedShoppingCart,
+      shoppingList: shoppingCart,
       item: cartItem
     };
-    this.dialog.open(CartItemComponent, { data })
+    this.dialog.open(CartItemComponent, { data });
   }
 
-  public allItemsPickedUp(): boolean {
-    return !this.nonFinishedShoppingCart.items.
+  public allItemsPickedUp(shoppingCart: ShoppingCart): boolean {
+    return !shoppingCart.items.
       find((item: ItemCart) => item.picked == false);
+  }
+
+  public finishShoppingList(shoppingCart: ShoppingCart): void {
+    
   }
 }

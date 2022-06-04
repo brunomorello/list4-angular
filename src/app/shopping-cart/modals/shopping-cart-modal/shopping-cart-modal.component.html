@@ -1,0 +1,34 @@
+<form (ngSubmit)="saveList()" #shoppingCartForm="ngForm">
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput
+                id="listName"
+                placeholder="Shopping List Name"
+                [(ngModel)]="shoppingList.name"
+                name="listName"
+                #fieldListName="ngModel"
+                required>
+        </mat-form-field>
+    </section>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput
+                id="listCountry"
+                placeholder="Shopping List Country"
+                [(ngModel)]="shoppingList.country"
+                name="listCountry"
+                #fieldListName="ngModel"
+                required>
+        </mat-form-field>
+    </section>
+    <section>
+        <button mat-raised-button color="primary"
+            *ngIf="shoppingList.id === 0"
+            [disabled]="shoppingCartForm.invalid">Add</button>
+        <button mat-raised-button color="primary"
+            *ngIf="shoppingList.id !== 0"
+            [disabled]="shoppingCartForm.invalid">Update</button>
+    </section>
+</form>

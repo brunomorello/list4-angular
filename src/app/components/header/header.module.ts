@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,

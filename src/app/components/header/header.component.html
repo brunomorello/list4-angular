@@ -1,5 +1,21 @@
-<p>
-    <mat-toolbar color="primary">
-        <span>Shopping List</span>
-    </mat-toolbar>
-</p>
+<mat-toolbar color="primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-icon" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Shopping List</span>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openShoppingListModal()">
+        <mat-icon>add_circle</mat-icon>
+        <span>New List</span>
+    </button>
+    <button mat-menu-item (click)="openSelectShoppingListModal()">
+        <mat-icon>list</mat-icon>
+        <span>Open List</span>
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>description</mat-icon>
+        <span>Reports</span>
+    </button>
+</mat-menu>
