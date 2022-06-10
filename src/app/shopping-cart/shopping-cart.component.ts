@@ -31,7 +31,7 @@ export class ShoppingCartComponent implements OnInit {
       if (param['shoppingListId']) {
         this.shoppingCartService.getById(param['shoppingListId'])
           .subscribe({
-            next: (value: ShoppingCart) => this.listShoppingCart.push(value),
+            next: (value: ShoppingCart) => this.listShoppingCart = [value],
             error: (err) => console.error(err)
           });
       } else {
