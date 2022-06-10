@@ -2,7 +2,9 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-icon" aria-label="Menu">
         <mat-icon>menu</mat-icon>
     </button>
-    <span>Shopping List</span>
+    <span>
+        <a [routerLink]="['']">Shopping List</a>
+    </span>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
