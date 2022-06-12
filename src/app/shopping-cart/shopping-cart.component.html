@@ -14,9 +14,15 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 
-                <mat-list role="list" >
-                <mat-list-item role="listitem" 
-                            *ngFor="let cartItem of shoppingCart.items">
+                <mat-list role="list">
+                    <button mat-raised-button color="primary"
+                        (click)="showOnlyPending(shoppingCart)">
+                        Show Only Pending
+                    </button>
+                    <button mat-icon-button (click)="refreshItem(shoppingCart)">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <mat-list-item role="listitem" *ngFor="let cartItem of shoppingCart.items">
                         <mat-checkbox class="example-margin" [checked]="cartItem.picked"
                             (change)="pickUpItem(cartItem, shoppingCart)">
                         </mat-checkbox>
