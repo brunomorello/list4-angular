@@ -17,6 +17,7 @@ export class ShoppingCartComponent implements OnInit {
 
   displayedColumns: string[];
   listShoppingCart: Array<ShoppingCart> = [];
+  showPending: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -24,6 +25,7 @@ export class ShoppingCartComponent implements OnInit {
     this.displayedColumns = [
       'product', 'quantity', 'price', 'picked'
     ];
+    this.showPending = false;
   }
 
   ngOnInit(): void {
@@ -90,6 +92,21 @@ export class ShoppingCartComponent implements OnInit {
       .subscribe({
         next: (value: ShoppingCart) => alert(`List ${value.name} finished`),
         error: (err) => console.error(err)
-      })
+      });
+  }
+
+  public showOnlyPending(shoppingCart: ShoppingCart): void {
+    const pos = this.listShoppingCart.indexOf(shoppingCart);
+    this.listShoppingCart[pos].items = this.listShoppingCart[pos].items
+      .filter((value: ItemCart) => value.picked === false);
+  }
+
+  public refreshItem(shoppingCart: ShoppingCart): void {
+    const pos = this.listShoppingCart.indexOf(shoppingCart);
+    this.shoppingCartService.getById(shoppingCart.id)
+      .subscribe({
+        next: (value: ShoppingCart) => this.listShoppingCart[pos] = value,
+        error: (err) => console.error(err)
+      });
   }
 }
