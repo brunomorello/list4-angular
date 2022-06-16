@@ -6,4 +6,5 @@ export interface ItemCart {
     quantity: number;
     price: number;
     picked: boolean;
+    supermarketName: string;
 }
