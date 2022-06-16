@@ -21,7 +21,7 @@ export class CartItemComponent implements OnInit {
     quantity: 0,
     price: 0,
     picked: false,
-
+    supermarketName: ""
   }
 
   constructor(private shoppingCartService: ShoppingCartService,

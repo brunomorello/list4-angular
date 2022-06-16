@@ -31,6 +31,7 @@
                             {{ cartItem.quantity }}
                             {{ cartItem.price }}
                             {{ cartItem.picked }}
+                            ===== {{ cartItem.supermarketName }}
                         </div>
                         <button mat-icon-button color="warn" 
                             (click)="removeItem(cartItem, shoppingCart)"
