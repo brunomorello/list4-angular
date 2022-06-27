@@ -48,27 +48,53 @@ export class ShoppingCartComponent implements OnInit {
     if (~itemPos) {
       cartItem.picked = !cartItem.picked;
       shoppingCart.items[itemPos] = cartItem;
-      this.shoppingCartService.updateShoppingList(shoppingCart)
-        .subscribe({
-          next: (res) => console.log(res),
-          error: (err) => console.error(err),
-          complete: () => console.log('completed')
-        });
+      const data: CartItemDialogDto = {
+        shoppingList: shoppingCart,
+        item: cartItem,
+        action: 'EDIT',
+        checkoutItem: true
+      };
+
+      const dialogRef = this.dialog.open(CartItemComponent, { data });
+
+      dialogRef.afterClosed().subscribe((resp: CartItemDialogDto) => {
+        if (resp) {
+          console.log(`item checked out`);
+          console.log(resp);
+
+          this.shoppingCartService.updateShoppingList(resp.shoppingList)
+            .subscribe({
+              next: (val: ShoppingCart) => console.log(`updated`),
+              error: (err) => console.error(err)
+            });
+        } else {
+          // Modal closed without action
+          console.log(`Modal closed without action - undo check`);
+          console.log(data.checkoutItem);
+          // Undo check
+          cartItem.picked = !cartItem.picked;
+          shoppingCart.items[itemPos] = cartItem;
+        } 
+      });
     }    
   }
 
   public removeItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
     const data: CartItemDialogDto = {
       shoppingList: shoppingCart,
-      item: cartItem
-      
+      item: cartItem,
+      action: 'REMOVE',
+      checkoutItem: false
     }
     this.dialog.open(RemoveItemComponent, { data });
   }
 
   public addItem(shoppingCart: ShoppingCart): void {
-    const data: CartItemDialogDto = {
-      shoppingList: shoppingCart
+    const data: any = {
+      shoppingList: shoppingCart,
+      item: null,
+      action: 'ADD',
+      checkoutItem: false
     };
     this.dialog.open(CartItemComponent, { data });
   }
@@ -76,7 +102,9 @@ export class ShoppingCartComponent implements OnInit {
   public editItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
     const data: CartItemDialogDto = {
       shoppingList: shoppingCart,
-      item: cartItem
+      item: cartItem,
+      action: 'EDIT',
+      checkoutItem: false
     };
     this.dialog.open(CartItemComponent, { data });
   }
