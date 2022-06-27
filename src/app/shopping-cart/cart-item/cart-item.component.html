@@ -1,47 +1,50 @@
 <form (ngSubmit)="saveItem()" #cartItemForm="ngForm">
-    <section>
+    <section *ngIf="cartItemDTO.action === 'EDIT'">
+        <p>Checkout {{ cartItemDTO.item.product.name }}</p>
+    </section>
+    <section *ngIf="cartItemDTO.action === 'ADD'">
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput
                 id="productName"
                 placeholder="Product Name"
-                [(ngModel)]="cartItem.product.name"
+                [(ngModel)]="cartItemDTO.item.product.name"
                 name="productName"
                 #fieldProductName="ngModel"
                 required>
         </mat-form-field>
     </section>
-    <section>
+    <section *ngIf="cartItemDTO.action === 'ADD'">
         <mat-form-field appearance="fill">
             <mat-label>Quantity</mat-label>
             <input matInput
                 id="quantity"
                 placeholder="Quantity"
-                [(ngModel)]="cartItem.quantity"
+                [(ngModel)]="cartItemDTO.item.quantity"
                 name="quantity"
                 #fieldQuantity="ngModel"
                 required>
         </mat-form-field>
     </section>
-    <section>
+    <section *ngIf="cartItemDTO.action === 'EDIT'">
         <mat-form-field appearance="fill">
             <mat-label>Price</mat-label>
             <input matInput
                 id="price"
-                placeholder="Quantity"
-                [(ngModel)]="cartItem.price"
+                placeholder="Price"
+                [(ngModel)]="cartItemDTO.item.price"
                 name="price"
                 #fieldPrice="ngModel"
                 required>
         </mat-form-field>
     </section>
-    <section>
+    <section *ngIf="cartItemDTO.action === 'EDIT'">
         <mat-form-field appearance="fill">
             <mat-label>Supermarket</mat-label>
             <input matInput
                 id="price"
                 placeholder="Supermarket"
-                [(ngModel)]="cartItem.supermarketName"
+                [(ngModel)]="cartItemDTO.item.supermarketName"
                 name="price"
                 #fieldPrice="ngModel"
                 required>
@@ -49,10 +52,11 @@
     </section>
     <section>
         <button mat-raised-button color="primary" 
-            *ngIf="cartItem.id === 0"
+            *ngIf="cartItemDTO.action === 'ADD'"
             [disabled]="cartItemForm.invalid">Add</button>
         <button mat-raised-button color="primary" 
-            *ngIf="cartItem.id !== 0"
-            [disabled]="cartItemForm.invalid">Update</button>
+            *ngIf="cartItemDTO.action === 'EDIT'"
+            [disabled]="cartItemForm.invalid"
+            [mat-dialog-close]="cartItemDTO">Update</button>
     </section>
 </form>
