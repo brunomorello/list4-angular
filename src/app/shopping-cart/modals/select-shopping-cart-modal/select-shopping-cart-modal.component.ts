@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PageableShoppintCart } from 'src/app/shared/models/pageable-shopping-cart';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 
@@ -20,7 +21,7 @@ export class SelectShoppingCartModalComponent implements OnInit {
   ngOnInit(): void {
     this.shoppingCartService.getAll()
       .subscribe({
-        next: (value: Array<ShoppingCart>) => this.listShoppingCart = value,
+        next: (value: PageableShoppintCart) => this.listShoppingCart = value.content,
         error: (err) => console.error(err),
         complete: () => console.log('completed')
       });

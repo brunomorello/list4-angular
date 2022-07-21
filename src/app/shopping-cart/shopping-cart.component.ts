@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ItemCart } from '../shared/models/item-cart';
+import { PageableShoppintCart } from '../shared/models/pageable-shopping-cart';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { CartItemDialogDto } from './cart-item/model/cart-item-dialog-dto';
@@ -37,7 +38,8 @@ export class ShoppingCartComponent implements OnInit {
             error: (err) => console.error(err)
           });
       } else {
-        this.listShoppingCart = this.activatedRoute.snapshot.data['shoppingCart'];
+        let resolverResp = <PageableShoppintCart> this.activatedRoute.snapshot.data['shoppingCart'];
+        this.listShoppingCart = resolverResp.content;
       }
     });
     console.log(this.listShoppingCart);
