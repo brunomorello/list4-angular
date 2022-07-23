@@ -1,6 +1,6 @@
 {
   "/backend/*": {
-    "target": "http://localhost:8080/",
+    "target": "https://list4u.herokuapp.com/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
