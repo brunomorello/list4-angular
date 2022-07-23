@@ -4,11 +4,24 @@
   "scripts": {
     "ng": "ng",
     "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
-    "start": "http-server --cors dist/list4u index.html $PORT",
+    "start": "http-server-spa dist/list4u index.html $PORT",
     "start-proxy": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
+  },
+  "serve": {
+    "builder": "@angular-devkit/build-angular:dev-server",
+    "options": {
+      "browserTarget": "app:build",
+      "proxyConfig": "proxy.conf.json"
+    },
+    "configurations": {
+      "production": {
+        "browserTarget": "app:build:production",
+        "proxyConfig": "proxy-prod.conf.json"
+      }
+    }
   },
   "private": true,
   "dependencies": {
