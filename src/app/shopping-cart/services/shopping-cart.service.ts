@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { ItemCart } from 'src/app/shared/models/item-cart';
 import { PageableShoppintCart } from 'src/app/shared/models/pageable-shopping-cart';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
+import { environment } from 'src/environments/environment';
 
-const API_ENDPOINT = '/backend';
+const API_ENDPOINT = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
