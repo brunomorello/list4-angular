@@ -14,7 +14,7 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 
-                <mat-list role="list">
+                <div>
                     <button flex="8" mat-raised-button color="primary"
                         (click)="showOnlyPending(shoppingCart)">
                         Show Pending Only
@@ -22,34 +22,82 @@
                     <button mat-icon-button (click)="refreshItem(shoppingCart)">
                         <mat-icon>refresh</mat-icon>
                     </button>
-                    <mat-list-item role="listitem" *ngFor="let cartItem of shoppingCart.items">
-                        <mat-checkbox class="example-margin" [checked]="cartItem.picked"
-                            (change)="pickUpItem(cartItem, shoppingCart)">
-                        </mat-checkbox>
-                        <div (click)="editItem(cartItem, shoppingCart)">
-                            {{ cartItem.product.name }}
-                            {{ cartItem.quantity }}
-                            {{ cartItem.price }}
-                            {{ cartItem.picked }}
-                            ===== {{ cartItem.supermarketName }}
-                        </div>
-                        <button mat-icon-button color="warn" 
-                            (click)="removeItem(cartItem, shoppingCart)"
-                            class="btn-delete-cart-item"
-                            aria-label="Remove Cart Item">
-                            <mat-icon>clear</mat-icon>
-                        </button>
-                    </mat-list-item>
-                </mat-list>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <div class="add-item-button">
-                        <button mat-mini-fab color="accent"
-                            align="end"
-                            aria-label="Add item to list"
-                            (click)="addItem(shoppingCart)">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
+                </div>
+                
+                <table mat-table [dataSource]="shoppingCart.items" *ngIf="shoppingCart.items.length > 0">
+                    <!-- checkbox -->
+                    <ng-container matColumnDef="checkbox">
+                        <th mat-header-cell *matHeaderCellDef>Picked?</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox class="example-margin" [checked]="element.picked"
+                                (change)="pickUpItem(element, shoppingCart)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <!-- Product Name -->
+                    <ng-container matColumnDef="product">
+                        <th mat-header-cell *matHeaderCellDef>Product</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.product.name}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Quantity -->
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.quantity }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Price -->
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef>Price</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.price }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Picked ? -->
+                    <ng-container matColumnDef="picked">
+                        <th mat-header-cell *matHeaderCellDef>Picked?</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.picked }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Supermarket -->
+                    <!-- <ng-container matColumnDef="supermarket">
+                        <th mat-header-cell *matHeaderCellDef>Supermarket</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.supermarketName }}
+                        </td>
+                    </ng-container> -->
+                    
+                    <!-- Actions -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button color="warn" 
+                                (click)="removeItem(element, shoppingCart)"
+                                class="btn-delete-cart-item"
+                                aria-label="Remove Cart Item">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <div class="container">
+                    <button class="add-item-button" mat-mini-fab color="accent"
+                        aria-label="Add item to list"
+                        (click)="addItem(shoppingCart)">
+                        <mat-icon>add</mat-icon>
+                    </button>
                 </div>                
             </mat-expansion-panel>
         </mat-accordion>
