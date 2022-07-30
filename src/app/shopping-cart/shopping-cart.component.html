@@ -10,7 +10,12 @@
                         {{ shoppingCart.name }} 
                     </mat-panel-title>
                     <mat-panel-description>
-                        Total of Items: {{ shoppingCart.items.length }}
+                        <p>
+                            # Items: {{ shoppingCart.items.length }}
+                        </p>
+                        <p>
+                            Total: {{ totalPriceCart(shoppingCart) }}
+                        </p>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 
