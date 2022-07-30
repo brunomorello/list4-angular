@@ -1,5 +1,6 @@
 .list-expansion {
-    max-width: 50%;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .shopping-cart-list {
@@ -21,7 +22,7 @@
 }
 
 .add-item-button {
-    margin-left: 10px;
+    margin: auto;
 }
 
 mat-panel-title > div > button {

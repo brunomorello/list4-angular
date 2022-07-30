@@ -15,9 +15,9 @@
                 </mat-expansion-panel-header>
                 
                 <mat-list role="list">
-                    <button mat-raised-button color="primary"
+                    <button flex="8" mat-raised-button color="primary"
                         (click)="showOnlyPending(shoppingCart)">
-                        Show Only Pending
+                        Show Pending Only
                     </button>
                     <button mat-icon-button (click)="refreshItem(shoppingCart)">
                         <mat-icon>refresh</mat-icon>
@@ -41,14 +41,16 @@
                         </button>
                     </mat-list-item>
                 </mat-list>
-                <div class="add-item-button example-button-container">
-                    <button mat-fab color="accent" 
-                        align="end"
-                        aria-label="Add item to list"
-                        (click)="addItem(shoppingCart)">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div class="add-item-button">
+                        <button mat-mini-fab color="accent"
+                            align="end"
+                            aria-label="Add item to list"
+                            (click)="addItem(shoppingCart)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>                
             </mat-expansion-panel>
         </mat-accordion>
     </div>
