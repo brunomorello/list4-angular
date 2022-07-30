@@ -139,4 +139,10 @@ export class ShoppingCartComponent implements OnInit {
         error: (err) => console.error(err)
       });
   }
+
+  public totalPriceCart(shoppingCart: ShoppingCart): number {
+    let total = 0;
+    shoppingCart.items.forEach((itemCart: ItemCart) => total += itemCart.price)
+    return total;
+  }
 }
