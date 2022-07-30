@@ -1,0 +1,57 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+    <div class="container">
+        <mat-accordion *ngFor="let shoppingCart of listShoppingCart" class="shopping-cart-list" multi>
+            <mat-expansion-panel class="list-expansion">
+                <mat-expansion-panel-header class="example-headers-align">
+                    <mat-panel-title>
+                        <div *ngIf="allItemsPickedUp(shoppingCart) && shoppingCart.items.length !== 0">
+                            <button (click)="finishShoppingList(shoppingCart)" mat-raised-button color="primary">Done</button>
+                        </div>
+                        {{ shoppingCart.name }} 
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Total of Items: {{ shoppingCart.items.length }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <mat-list role="list">
+                    <button flex="8" mat-raised-button color="primary"
+                        (click)="showOnlyPending(shoppingCart)">
+                        Show Pending Only
+                    </button>
+                    <button mat-icon-button (click)="refreshItem(shoppingCart)">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <mat-list-item role="listitem" *ngFor="let cartItem of shoppingCart.items">
+                        <mat-checkbox class="example-margin" [checked]="cartItem.picked"
+                            (change)="pickUpItem(cartItem, shoppingCart)">
+                        </mat-checkbox>
+                        <div (click)="editItem(cartItem, shoppingCart)">
+                            {{ cartItem.product.name }}
+                            {{ cartItem.quantity }}
+                            {{ cartItem.price }}
+                            {{ cartItem.picked }}
+                            ===== {{ cartItem.supermarketName }}
+                        </div>
+                        <button mat-icon-button color="warn" 
+                            (click)="removeItem(cartItem, shoppingCart)"
+                            class="btn-delete-cart-item"
+                            aria-label="Remove Cart Item">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div class="add-item-button">
+                        <button mat-mini-fab color="accent"
+                            align="end"
+                            aria-label="Add item to list"
+                            (click)="addItem(shoppingCart)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>                
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

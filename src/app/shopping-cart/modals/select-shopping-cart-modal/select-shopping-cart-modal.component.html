@@ -1,0 +1,14 @@
+<mat-list *ngFor="let shoppingCart of listShoppingCart" role="list">
+    <mat-list-item role="listitem">{{ shoppingCart.name }}
+        <button mat-icon-button color="primary"
+            (click)="openList(shoppingCart)">
+            <mat-icon>launch</mat-icon>
+        </button>
+        <button mat-icon-button color="primary">
+            <mat-icon>file_copy</mat-icon>
+        </button>
+        <button *ngIf="!shoppingCart.finished" mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </mat-list-item>
+</mat-list>
