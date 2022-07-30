@@ -24,7 +24,7 @@ export class ShoppingCartComponent implements OnInit {
               private dialog: MatDialog,
               private shoppingCartService: ShoppingCartService) {
     this.displayedColumns = [
-      'product', 'quantity', 'price', 'picked'
+      'checkbox', 'product', 'quantity', 'price', 'picked', 'actions'
     ];
     this.showPending = false;
   }
@@ -113,7 +113,7 @@ export class ShoppingCartComponent implements OnInit {
 
   public allItemsPickedUp(shoppingCart: ShoppingCart): boolean {
     return !shoppingCart.items.
-      find((item: ItemCart) => item.picked == false);
+      find((item: ItemCart) => item.picked === false);
   }
 
   public finishShoppingList(shoppingCart: ShoppingCart): void {

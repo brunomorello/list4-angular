@@ -22,7 +22,7 @@
 }
 
 .add-item-button {
-    margin: auto;
+    margin-top: 10px;
 }
 
 mat-panel-title > div > button {
@@ -36,4 +36,16 @@ mat-panel-title > div > button {
 .btn-delete-cart-item {
     display: flex;
     align-items: flex-end;
+}
+
+td.mat-cell:first-of-type {
+    padding-left: 0;
+}
+
+th.mat-header-cell:first-of-type {
+    padding-left: 0;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding: 5px;
 }
