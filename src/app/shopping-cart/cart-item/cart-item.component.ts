@@ -89,7 +89,8 @@ export class CartItemComponent implements OnInit {
       value.picked === itemCart.picked &&
       value.price === itemCart.price &&
       value.quantity === itemCart.quantity &&
-      value.id === itemCart.id
+      value.id === itemCart.id &&
+      value.supermarketName === itemCart.supermarketName
     });
   }
 

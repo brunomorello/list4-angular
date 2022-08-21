@@ -8,10 +8,13 @@ import { HeaderModule } from './components/header/header.module';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
 import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReportsComponent } from './reports/reports.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderModule,
     HomeModule,
     ShoppingCartModule,
-    HttpClientModule
+    HttpClientModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
