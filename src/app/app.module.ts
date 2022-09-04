@@ -10,11 +10,15 @@ import { HomeModule } from './home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './reports/reports.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { ReportProductPriceTrendComponent } from './reports/components/report-product-price-trend/report-product-price-trend.component';
+import { ReportTotalByMonthPieChartComponent } from './reports/components/report-total-by-month-pie-chart/report-total-by-month-pie-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReportsComponent
+    ReportsComponent,
+    ReportProductPriceTrendComponent,
+    ReportTotalByMonthPieChartComponent
   ],
   imports: [
     BrowserModule,
