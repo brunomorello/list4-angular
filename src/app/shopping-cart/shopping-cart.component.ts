@@ -142,7 +142,7 @@ export class ShoppingCartComponent implements OnInit {
 
   public totalPriceCart(shoppingCart: ShoppingCart): number {
     let total = 0;
-    shoppingCart.items.forEach((itemCart: ItemCart) => total += itemCart.price)
+    shoppingCart.items.forEach((itemCart: ItemCart) => total += (itemCart.price * itemCart.quantity))
     return total;
   }
 }
