@@ -37,7 +37,6 @@ export class ReportProductPriceTrendComponent implements OnInit {
     this.reportsService.getProductsPriceTrentByYear(2022).subscribe({
       next: ((resp: ReportProductPriceTrend[]) => {
         console.log('total products by year');
-        console.log(resp);
         this.initChart(resp);
       }),
       error: ((err) => console.error(err))
@@ -49,11 +48,22 @@ export class ReportProductPriceTrendComponent implements OnInit {
 
     // Get Categories
     let categories = data.map((val: ReportProductPriceTrend) => this.parseMonth(val.month));
+    categories = categories.filter((item, index) => categories.indexOf(item) === index);
+    
     const xaxis: Xaxis = {
       categories: categories
     };
 
-    debugger
+    const result = data.reduce((r, a) => {
+        console.log(r);
+        console.log(a);
+
+        r[a.name] = r[a.name] || [];
+        r[a.name].push(a);
+        return r;
+    }, Object.create(null));
+    console.log(result);
+
     // Get Series of Data
     const seriesArr: Series[] = [];
     data.forEach((val: ReportProductPriceTrend) => {
@@ -64,7 +74,6 @@ export class ReportProductPriceTrendComponent implements OnInit {
 
       // if found, add value
       if (itemPosition > -1) {
-        debugger
         seriesArr[itemPosition].data.push(val.price);
       } else {
         // Create a new Serie for this item
