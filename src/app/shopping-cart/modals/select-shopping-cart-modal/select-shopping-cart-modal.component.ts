@@ -28,7 +28,7 @@ export class SelectShoppingCartModalComponent implements OnInit {
   }
 
   openList(shoppingCart: ShoppingCart): void {
-    this.router.navigate([`./${shoppingCart.id}`])
+    this.router.navigate([`./shopping-cart/${shoppingCart.id}`])
       .then((res: boolean) => this.dialogRef.close());
   }
 
