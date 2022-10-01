@@ -3,7 +3,7 @@
         <mat-icon>menu</mat-icon>
     </button>
     <span>
-        <a [routerLink]="['']">Shopping List</a>
+        <a [routerLink]="['shopping-cart']">Shopping List</a>
     </span>
 </mat-toolbar>
 
@@ -16,8 +16,10 @@
         <mat-icon>list</mat-icon>
         <span>Open List</span>
     </button>
-    <button mat-menu-item disabled>
-        <mat-icon>description</mat-icon>
-        <span>Reports</span>
+    <button mat-menu-item>
+        <a [routerLink]="['reports']">
+            <mat-icon>description</mat-icon>
+            <span>Reports</span>
+        </a>
     </button>
 </mat-menu>

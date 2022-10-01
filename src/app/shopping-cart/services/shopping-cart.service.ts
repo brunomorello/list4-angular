@@ -34,6 +34,7 @@ export class ShoppingCartService {
   }
 
   updateShoppingList(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
+    console.log(shoppingCart);
     shoppingCart.items = shoppingCart.items.map(this.setItemCartId);
     return this.httpClient.put<ShoppingCart>(`${API_ENDPOINT}/shopping-carts/${shoppingCart.id}`, shoppingCart);
   }
