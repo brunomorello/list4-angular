@@ -34,7 +34,9 @@ export class ShoppingCartComponent implements OnInit {
       if (param['shoppingListId']) {
         this.shoppingCartService.getById(param['shoppingListId'])
           .subscribe({
-            next: (value: ShoppingCart) => this.listShoppingCart = [value],
+            next: (value: ShoppingCart) => {
+              this.listShoppingCart = [value];
+            },
             error: (err) => console.error(err)
           });
       } else {
@@ -144,5 +146,9 @@ export class ShoppingCartComponent implements OnInit {
     let total = 0;
     shoppingCart.items.forEach((itemCart: ItemCart) => total += (itemCart.price * itemCart.quantity))
     return total;
+  }
+
+  public isCartOpened(shoppingCart: ShoppingCart): boolean {
+    return !shoppingCart.finished;
   }
 }
