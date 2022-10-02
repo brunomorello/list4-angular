@@ -4,7 +4,7 @@
             <mat-expansion-panel class="list-expansion">
                 <mat-expansion-panel-header class="example-headers-align">
                     <mat-panel-title>
-                        <div *ngIf="allItemsPickedUp(shoppingCart) && shoppingCart.items.length !== 0">
+                        <div *ngIf="isCartOpened(shoppingCart) && (allItemsPickedUp(shoppingCart) && shoppingCart.items.length !== 0)">
                             <button (click)="finishShoppingList(shoppingCart)" mat-raised-button color="primary">Done</button>
                         </div>
                         {{ shoppingCart.name }} 
@@ -19,7 +19,7 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 
-                <div>
+                <div *ngIf="isCartOpened(shoppingCart)">
                     <button flex="8" mat-raised-button color="primary"
                         (click)="showOnlyPending(shoppingCart)">
                         Show Pending Only
@@ -84,7 +84,7 @@
                     <ng-container matColumnDef="actions">
                         <th mat-header-cell *matHeaderCellDef>Actions</th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button color="warn" 
+                            <button *ngIf="isCartOpened(shoppingCart)" mat-icon-button color="warn" 
                                 (click)="removeItem(element, shoppingCart)"
                                 class="btn-delete-cart-item"
                                 aria-label="Remove Cart Item">
@@ -97,7 +97,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
-                <div class="container">
+                <div *ngIf="isCartOpened(shoppingCart)" class="container">
                     <button class="add-item-button" mat-mini-fab color="accent"
                         aria-label="Add item to list"
                         (click)="addItem(shoppingCart)">
