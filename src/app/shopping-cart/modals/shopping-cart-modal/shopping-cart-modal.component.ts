@@ -24,7 +24,7 @@ export class ShoppingCartModalComponent implements OnInit {
               public dialogRef: MatDialogRef<ShoppingCartModalComponent>) { }
 
   ngOnInit(): void {
-    this.shoppingCartService = this.data ? this.data : this.shoppingCartService;
+    this.shoppingList = this.data ? this.data : this.shoppingList;
   }
 
   saveList(): void {
