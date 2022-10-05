@@ -39,6 +39,10 @@ export class ShoppingCartService {
     return this.httpClient.put<ShoppingCart>(`${API_ENDPOINT}/shopping-carts/${shoppingCart.id}`, shoppingCart);
   }
 
+  deleteShoppingList(shoppingCart: ShoppingCart): Observable<any> {
+    return this.httpClient.delete(`${API_ENDPOINT}/shopping-carts/${shoppingCart.id}`);
+  }
+
   // TODO - use backend to handle this
   private setItemCartId(itemCart: ItemCart): ItemCart {
     itemCart.id = itemCart.id === 0 ? Date.now() : itemCart.id;
