@@ -4,6 +4,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
 import { SelectShoppingCartModalComponent } from 'src/app/shopping-cart/modals/select-shopping-cart-modal/select-shopping-cart-modal.component';
 import { ShoppingCartModalComponent } from 'src/app/shopping-cart/modals/shopping-cart-modal/shopping-cart-modal.component';
+import { SupermarketComponent } from 'src/app/shopping-cart/modals/supermarket/supermarket.component';
 
 @Component({
   selector: 'app-header',
@@ -25,4 +26,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(SelectShoppingCartModalComponent);
   }
 
+  openSupermarketModal(): void {
+    this.dialog.open(SupermarketComponent);
+  }
 }

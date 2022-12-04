@@ -1,0 +1,44 @@
+<p class="container">Create a Supermarket</p>
+
+<form (ngSubmit)="createSupermarket()" #supermarketForm="ngForm">
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput
+                id="name"
+                name="name"
+                placeholder="Supermarket Name"
+                [(ngModel)]="supermarket.name"
+                #fieldListName="ngModel"
+                required>
+        </mat-form-field>
+    </section>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <mat-select matInput
+                id="country"
+                name="country"
+                placeholder="Select a Country"
+                [(ngModel)]="supermarket.country"
+                #fieldListName="ngModel"
+                required>
+
+                <mat-option *ngFor="let country of countries" value="{{country[0]}}">
+                    {{ country[1] }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </section>
+
+    <section class="container">
+        <div class="button-row">
+            <button mat-raised-button color="primary" disabled="{{ !supermarketForm.valid }}" >
+                Create
+            </button>
+            <button mat-raised-button (click)="closeModal()">
+                Cancel
+            </button>
+        </div>
+    </section>
+</form>
