@@ -6,6 +6,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
 import { RemoveItemComponent } from './cart-item/remove-item/remove-item.component';
 import { ShoppingCartModalComponent } from './modals/shopping-cart-modal/shopping-cart-modal.component';
 import { SelectShoppingCartModalComponent } from './modals/select-shopping-cart-modal/select-shopping-cart-modal.component';
+import { SupermarketComponent } from './modals/supermarket/supermarket.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { SelectShoppingCartModalComponent } from './modals/select-shopping-cart-
     CartItemComponent,
     RemoveItemComponent,
     ShoppingCartModalComponent,
-    SelectShoppingCartModalComponent
+    SelectShoppingCartModalComponent,
+    SupermarketComponent
   ],
   imports: [
     CommonModule,
