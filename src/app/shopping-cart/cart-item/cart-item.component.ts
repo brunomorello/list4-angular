@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { map, Observable, startWith } from 'rxjs';
 import { ItemCart } from 'src/app/shared/models/item-cart';
 import { Product } from 'src/app/shared/models/product';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { SupermarketService } from '../services/supermarket.service';
 import { CartItemDialogDto } from './model/cart-item-dialog-dto';
 
 @Component({
@@ -37,7 +40,12 @@ export class CartItemComponent implements OnInit {
     checkoutItem: false
   }
 
+  myControl = new FormControl('');
+  supermarkets: any[] = [];
+  filteredOptions: Observable<any[]> | undefined;
+
   constructor(private shoppingCartService: ShoppingCartService,
+      private supermarketService: SupermarketService,
       @Inject(MAT_DIALOG_DATA) public data: CartItemDialogDto,
       public dialogRef: MatDialogRef<CartItemComponent>) {
   }
@@ -45,6 +53,19 @@ export class CartItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.action === 'EDIT') {
       this.cartItemDTO = this.data;
+
+      this.supermarketService.getAll()
+      .subscribe({
+        next: (res: any) => {
+          this.supermarkets = res.content;
+        },
+        error: (err) => console.error(err)
+      });
+
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );
     }
     if (this.data.action === 'ADD') {
       this.cartItemDTO.shoppingList = this.data.shoppingList;
@@ -92,6 +113,12 @@ export class CartItemComponent implements OnInit {
       value.id === itemCart.id &&
       value.supermarketName === itemCart.supermarketName
     });
+  }
+
+  private _filter(value: string | object): string[] {
+    const filterValue = value.toString().toLowerCase();
+
+    return this.supermarkets.filter(supermarket => supermarket.name.toLowerCase().includes(filterValue));
   }
 
 }
