@@ -13,7 +13,7 @@ export class SupermarketComponent implements OnInit {
 
   supermarket: Supermarket = {
     id: 0,
-    name: null,
+    name: '',
     country: null
   };
 

@@ -1,7 +1,6 @@
-import { Product } from "./product";
-import { Supermarket } from "./supermarket";
+import { Product } from "src/app/shared/models/product";
 
-export interface ItemCart {
+export interface ItemCartDto {
     id: number;
     product: Product;
     quantity: number;

@@ -41,13 +41,21 @@
     <section *ngIf="cartItemDTO.action === 'EDIT'">
         <mat-form-field appearance="fill">
             <mat-label>Supermarket</mat-label>
-            <input matInput
-                id="price"
+            <input type="text"
+                id="supermarket"
                 placeholder="Supermarket"
+                aria-label="Supermarket"
+                matInput
                 [(ngModel)]="cartItemDTO.item.supermarketName"
-                name="price"
-                #fieldPrice="ngModel"
+                name="supermarket"
+                [matAutocomplete]="auto"
+                [formControl]="myControl"                
                 required>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let supermarket of filteredOptions | async" [value]="supermarket.name">
+                    {{ supermarket.name }}
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
     </section>
     <section>
