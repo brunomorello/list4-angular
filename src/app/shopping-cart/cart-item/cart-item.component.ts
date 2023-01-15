@@ -5,6 +5,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { ItemCart } from 'src/app/shared/models/item-cart';
 import { Product } from 'src/app/shared/models/product';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
+import { ProductService } from '../services/product.service';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { SupermarketService } from '../services/supermarket.service';
 import { CartItemDialogDto } from './model/cart-item-dialog-dto';
@@ -42,15 +43,33 @@ export class CartItemComponent implements OnInit {
 
   myControl = new FormControl('');
   supermarkets: any[] = [];
+  products: any[] = [];
   filteredOptions: Observable<any[]> | undefined;
+  filteredProducts: Observable<any[]> | undefined;
 
   constructor(private shoppingCartService: ShoppingCartService,
       private supermarketService: SupermarketService,
+      private productService: ProductService,
       @Inject(MAT_DIALOG_DATA) public data: CartItemDialogDto,
       public dialogRef: MatDialogRef<CartItemComponent>) {
   }
   
   ngOnInit(): void {
+
+    this.productService.getAll()
+    .subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.products = res;
+      },
+      error: (err) => console.error(err)
+    });
+
+    this.filteredProducts = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
     if (this.data.action === 'EDIT') {
       this.cartItemDTO = this.data;
 
@@ -67,6 +86,7 @@ export class CartItemComponent implements OnInit {
         map(value => this._filter(value || '')),
       );
     }
+
     if (this.data.action === 'ADD') {
       this.cartItemDTO.shoppingList = this.data.shoppingList;
     }
