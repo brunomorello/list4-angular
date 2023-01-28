@@ -10,12 +10,12 @@
                 name="productName"
                 aria-label="Product Name"
                 placeholder="Product Name"
-                [(ngModel)]="cartItemDTO.item.product.name"
+                [(ngModel)]="cartItemDTO.item.product"
                 [matAutocomplete]="productAutoComplete"
-                [formControl]="myControl"                
+                [formControl]="myControl"              
                 required>
-            <mat-autocomplete #productAutoComplete="matAutocomplete">
-                <mat-option *ngFor="let product of filteredProducts | async" [value]="product.name">
+            <mat-autocomplete #productAutoComplete="matAutocomplete" [displayWith]="getOptionText">
+                <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
                     {{ product.name }}
                 </mat-option>
             </mat-autocomplete>

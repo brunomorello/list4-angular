@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { ItemCart } from 'src/app/shared/models/item-cart';
 import { Product } from 'src/app/shared/models/product';
@@ -67,6 +67,11 @@ export class CartItemComponent implements OnInit {
 
     this.filteredProducts = this.myControl.valueChanges.pipe(
       startWith(''),
+      map(value => this._filterProducts(value || '')),
+    );
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
       map(value => this._filter(value || '')),
     );
 
@@ -80,11 +85,6 @@ export class CartItemComponent implements OnInit {
         },
         error: (err) => console.error(err)
       });
-
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value || '')),
-      );
     }
 
     if (this.data.action === 'ADD') {
@@ -139,6 +139,17 @@ export class CartItemComponent implements OnInit {
     const filterValue = value.toString().toLowerCase();
 
     return this.supermarkets.filter(supermarket => supermarket.name.toLowerCase().includes(filterValue));
+  }
+
+  private _filterProducts(value: string): string[] {
+    const filterValue = value.toString().toLowerCase();
+    console.log(filterValue);
+
+    return this.products.filter(supermarket => supermarket.name.toLowerCase().includes(filterValue));
+  }
+
+  getOptionText(option: Product) {
+    return option.name;
   }
 
 }
