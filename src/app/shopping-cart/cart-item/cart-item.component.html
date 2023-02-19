@@ -19,6 +19,9 @@
                     {{ product.name }}
                 </mat-option>
             </mat-autocomplete>
+            <button *ngIf="showAddProductButton && myControl.value" (click)="addProduct()">
+                <mat-icon matTooltip='Add "{{   myControl.value }}"'>add</mat-icon>
+            </button>
         </mat-form-field>
     </section>
     <section *ngIf="cartItemDTO.action === 'ADD'">

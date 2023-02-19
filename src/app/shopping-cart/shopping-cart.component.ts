@@ -7,6 +7,7 @@ import { ShoppingCart } from '../shared/models/shopping-cart';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { CartItemDialogDto } from './cart-item/model/cart-item-dialog-dto';
 import { RemoveItemComponent } from './cart-item/remove-item/remove-item.component';
+import { ProductService } from './services/product.service';
 import { ShoppingCartService } from './services/shopping-cart.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
-              private shoppingCartService: ShoppingCartService) {
+              private shoppingCartService: ShoppingCartService,
+              private productService: ProductService,) {
     this.displayedColumns = [
       'checkbox', 'product', 'quantity', 'price', 'picked', 'actions'
     ];
@@ -94,13 +96,23 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public addItem(shoppingCart: ShoppingCart): void {
-    const data: any = {
-      shoppingList: shoppingCart,
-      item: null,
-      action: 'ADD',
-      checkoutItem: false
-    };
-    this.dialog.open(CartItemComponent, { data });
+
+    this.productService.getAll()
+    .subscribe({
+      next: (res: any) => {
+        console.log(res);
+        const data: any = {
+          shoppingList: shoppingCart,
+          item: null,
+          action: 'ADD',
+          checkoutItem: false,
+          productsList: res
+        };
+        this.dialog.open(CartItemComponent, { data });
+      },
+      error: (err) => console.error(err)
+    });
+
   }
 
   public editItem(cartItem: ItemCart, shoppingCart: ShoppingCart): void {
