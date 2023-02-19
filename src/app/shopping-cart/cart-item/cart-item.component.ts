@@ -46,49 +46,53 @@ export class CartItemComponent implements OnInit {
   products: any[] = [];
   filteredOptions: Observable<any[]> | undefined;
   filteredProducts: Observable<any[]> | undefined;
+  showAddProductButton: boolean = false;
+  prompt: string = 'Click on + to add "';
 
   constructor(private shoppingCartService: ShoppingCartService,
       private supermarketService: SupermarketService,
-      private productService: ProductService,
-      @Inject(MAT_DIALOG_DATA) public data: CartItemDialogDto,
-      public dialogRef: MatDialogRef<CartItemComponent>) {
-  }
+     
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      public dialogRef: MatDialogRef<CartItemComponent>) { }
   
   ngOnInit(): void {
+    
+    this.products = this.data.productsList;
 
-    this.productService.getAll()
-    .subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.products = res;
-      },
-      error: (err) => console.error(err)
-    });
-
-    this.filteredProducts = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterProducts(value || '')),
-    );
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
-
-    if (this.data.action === 'EDIT') {
-      this.cartItemDTO = this.data;
-
-      this.supermarketService.getAll()
-      .subscribe({
-        next: (res: any) => {
-          this.supermarkets = res.content;
-        },
-        error: (err) => console.error(err)
-      });
-    }
-
-    if (this.data.action === 'ADD') {
-      this.cartItemDTO.shoppingList = this.data.shoppingList;
+    if (this.products) {
+      this.filteredProducts = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          let results = this._filterProducts(value || '');
+  
+          this.showAddProductButton = results.length === 0;
+          if (this.showAddProductButton) {
+            results = [this.prompt + value + '"'];
+          }
+          return results;
+        }),
+      );
+  
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );
+  
+      if (this.data.action === 'EDIT') {
+        this.cartItemDTO = this.data;
+  
+        this.supermarketService.getAll()
+        .subscribe({
+          next: (res: any) => {
+            this.supermarkets = res.content;
+          },
+          error: (err) => console.error(err)
+        });
+      }
+  
+      if (this.data.action === 'ADD') {
+        this.cartItemDTO.shoppingList = this.data.shoppingList;
+      }
     }
   }
 
@@ -123,6 +127,26 @@ export class CartItemComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  addProduct() {
+    let option = this.removePromptFromOption(this.myControl.value);
+    if (!this.products.some(entry => entry === option)) {
+      const product = {
+        id: 0,
+        name: option.toUpperCase()
+      };
+      const index = this.products.push(product) - 1;
+      this.myControl.setValue(this.products[index]);
+      return;
+    }
+  }
+
+  private removePromptFromOption(option: string) {
+    if (option.startsWith(this.prompt)) {
+      option = option.substring(this.prompt.length, option.length - 1);
+    }
+    return option;
+  }
+
   private getCartItemPos(itemCart: ItemCart, shoppingCart: ShoppingCart): number {
     return shoppingCart.items.findIndex((value: ItemCart) => {
       value.product.id === itemCart.product.id &&
@@ -141,11 +165,19 @@ export class CartItemComponent implements OnInit {
     return this.supermarkets.filter(supermarket => supermarket.name.toLowerCase().includes(filterValue));
   }
 
-  private _filterProducts(value: string): string[] {
-    const filterValue = value.toString().toLowerCase();
-    console.log(filterValue);
-
-    return this.products.filter(supermarket => supermarket.name.toLowerCase().includes(filterValue));
+  private _filterProducts(value: any): string[] {
+    if (this.products && value) {
+      const filterValue = (value instanceof Object) ?
+        value.name : value.toString().toUpperCase();
+      console.log(filterValue);
+      console.log(this.products);
+  
+      const productFound = this.products.filter(product => product?.name?.includes(filterValue));
+      if (productFound.length > 0) {
+        return productFound;
+      }
+    }
+    return [];
   }
 
   getOptionText(option: Product) {
