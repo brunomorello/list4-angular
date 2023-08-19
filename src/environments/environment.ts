@@ -4,7 +4,18 @@
 
 export const environment = {
   production: false,
-  baseUrl: '/backend'
+  baseUrl: '/backend',
+  authserver: {
+    // prod https://bmo-auth-server-25d7c6b7683d.herokuapp.com
+    issuer: 'http://auth-server:8082',
+    clientId: 'list4u-dev',
+    clientSecret: 'myClientSecretValue',
+    redirectUri: 'http://localhost:4200/authorized',
+    scope: 'openid profile',
+    response_type: 'code',
+    logoutUrl: 'http://127.0.0.1:8081',
+    postLogoutRedirectUri: 'http://localhost:4200/landing',
+  }
 };
 
 /*
