@@ -5,6 +5,10 @@
     <span>
         <a [routerLink]="['shopping-cart']">Shopping List</a>
     </span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon login-icon" aria-label="Example icon-button with heart icon" (click)="login()">
+        <mat-icon>login</mat-icon>
+    </button>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">

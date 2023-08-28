@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: '/backend',
+  tokenhUrl: 'http://auth-server:8082/oauth2/token',
   authserver: {
     // prod https://bmo-auth-server-25d7c6b7683d.herokuapp.com
     issuer: 'http://auth-server:8082',

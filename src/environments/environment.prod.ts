@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: 'https://list4u.herokuapp.com/api',
+  authUrl: '/auth',
   authserver: {
     issuer: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
     clientId: 'list4u-dev',

@@ -8,4 +8,13 @@
       "^/backend": "api"
     }
   }
+  // "/auth/*": {
+  //   "target": "http://auth-server:8082",
+  //   "secure": false,
+  //   "logLevel": "debug",
+  //   "changeOrigin": true,
+  //   "pathRewrite": {
+  //     "^/auth": ""
+  //   }
+  // }
 }
