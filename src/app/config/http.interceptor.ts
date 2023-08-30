@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth.service";
 import { Token } from "../auth/token";
-import { catchError, map } from "rxjs";
+import { catchError, map, throwError } from "rxjs";
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
@@ -13,7 +13,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): any {
         debugger
         const token: Token | null = this.authService.getSessionToken(); 
-        if (this.authService.isAuthenticated()) {
+        if (this.authService.isAuthenticated() && token) {
             req = req.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token?.access_token}`
@@ -32,7 +32,11 @@ export class AppHttpInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse) => {
                 console.error('http interceptor error');
                 console.error(error);
-                throw error;
+                if (error.status === 401) {
+                    console.log(`unathorized 401`);
+                }
+
+                return throwError(() => new Error(error.error));
             })
         );
     }

@@ -49,7 +49,7 @@ export class AuthService {
         .set('code', code)
         .set('redirect_uri', 'http://localhost:4200/authorized');
 
-      this.httpClient.post<Token>(AUTH_SERVER_URL, body, { headers: headers })
+      this.httpClient.post<Token>(`${AUTH_SERVER_URL}/oauth2/token`, body, { headers: headers })
         .subscribe({
           next: token => this.saveSessionToken(token),
           error: (err) => {
@@ -72,7 +72,7 @@ export class AuthService {
         .set('client_id', 'list4u-dev')
         .set('client_secret', 'myClientSecretValue')
         .set('refresh_token', token?.refresh_token ?? '');
-      this.httpClient.post<Token>(AUTH_SERVER_URL, body, { headers: headers })
+      this.httpClient.post<Token>(`${AUTH_SERVER_URL}/oauth2/token`, body, { headers: headers })
         .subscribe({
           next: token => this.saveSessionToken(token),
           error: (err) => {

@@ -7,14 +7,14 @@
     "pathRewrite": {
       "^/backend": "api"
     }
+  },
+  "/authserver/*": {
+    "target": "http://auth-server:8082/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": {
+      "^/authserver": ""
+    }
   }
-  // "/auth/*": {
-  //   "target": "http://auth-server:8082",
-  //   "secure": false,
-  //   "logLevel": "debug",
-  //   "changeOrigin": true,
-  //   "pathRewrite": {
-  //     "^/auth": ""
-  //   }
-  // }
 }
