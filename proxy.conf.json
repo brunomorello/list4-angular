@@ -1,11 +1,20 @@
 {
   "/backend/*": {
-    "target": "http://localhost:8080/",
+    "target": "http://localhost:8081/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false,
     "pathRewrite": {
       "^/backend": "api"
+    }
+  },
+  "/authserver/*": {
+    "target": "http://auth-server:8082/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": {
+      "^/authserver": ""
     }
   }
 }
