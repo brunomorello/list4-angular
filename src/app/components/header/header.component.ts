@@ -7,6 +7,7 @@ import { ShoppingCartModalComponent } from 'src/app/shopping-cart/modals/shoppin
 import { environment } from 'src/environments/environment';
 
 const AUTH_SERVER_URL: string = environment.authUrl;
+const FRONT_URL: string = environment.redirectUri;
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   login(): void {
-    const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
+    const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=${FRONT_URL}authorized`;
     window.open(url, '_self');
     // this.router.navigate(['/login-oauth2', { externalUrl: url }])
     // .then(() => console.log(`redirected to login page`));
