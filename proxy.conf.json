@@ -9,7 +9,7 @@
     }
   },
   "/authserver/*": {
-    "target": "http://auth-server:8082/",
+    "target": "http://localhost:8082/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false,

@@ -6,7 +6,7 @@ import { SelectShoppingCartModalComponent } from 'src/app/shopping-cart/modals/s
 import { ShoppingCartModalComponent } from 'src/app/shopping-cart/modals/shopping-cart-modal/shopping-cart-modal.component';
 import { environment } from 'src/environments/environment';
 
-const REDIRECT_URI: string = environment.redirectUri;
+const AUTH_SERVER_URL: string = environment.authUrl;
 
 @Component({
   selector: 'app-header',
@@ -21,9 +21,10 @@ export class HeaderComponent implements OnInit {
   }
 
   login(): void {
-    const url: string = `${REDIRECT_URI}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
-    this.router.navigate(['/login-oauth2', { externalUrl: url }])
-    .then(() => console.log(`redirected to login page`));
+    const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
+    window.open(url, '_self');
+    // this.router.navigate(['/login-oauth2', { externalUrl: url }])
+    // .then(() => console.log(`redirected to login page`));
   }
 
   openShoppingListModal(shoppingList?: ShoppingCart): void {

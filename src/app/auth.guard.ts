@@ -21,9 +21,9 @@ export class AuthGuard implements CanActivate {
         return true;
       }
 
-      const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
-      this.router.navigate(['/login-oauth2', { externalUrl: url }])
-      .then(() => console.log(`redirected to login page`));
+      // const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
+      // this.router.navigate(['/login-oauth2', { externalUrl: url }])
+      // .then(() => console.log(`redirected to login page`));
 
       return false;
   }
