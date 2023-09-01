@@ -7,6 +7,7 @@ export const environment = {
   baseUrl: '/backend',
   authUrl: 'http://auth-server:8082/oauth2',
   tokenhUrl: '/authserver',
+  redirectUri: 'http://localhost:4200'
   // authserver: {
   //   // prod https://bmo-auth-server-25d7c6b7683d.herokuapp.com
   //   issuer: 'http://auth-server:8082',
