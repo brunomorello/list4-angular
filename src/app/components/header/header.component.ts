@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
 import { SelectShoppingCartModalComponent } from 'src/app/shopping-cart/modals/select-shopping-cart-modal/select-shopping-cart-modal.component';
@@ -23,8 +22,9 @@ export class HeaderComponent implements OnInit {
 
   login(): void {
     const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=http://localhost:4200/authorized`;
-    this.router.navigate(['/login-oauth2', { externalUrl: url }])
-    .then(() => console.log(`redirected to login page`));
+    window.open(url, '_self');
+    // this.router.navigate(['/login-oauth2', { externalUrl: url }])
+    // .then(() => console.log(`redirected to login page`));
   }
 
   openShoppingListModal(shoppingList?: ShoppingCart): void {

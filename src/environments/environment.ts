@@ -5,8 +5,11 @@
 export const environment = {
   production: false,
   baseUrl: '/backend',
-  authUrl: 'http://auth-server:8082/oauth2',
-  tokenhUrl: '/authserver',
+  // authUrl: 'http://localhost:8082/oauth2',
+  authUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com/oauth2',
+  // tokenhUrl: '/authserver',
+  tokenhUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
+  redirectUri: 'http://localhost:4200'
   // authserver: {
   //   // prod https://bmo-auth-server-25d7c6b7683d.herokuapp.com
   //   issuer: 'http://auth-server:8082',

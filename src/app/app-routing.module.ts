@@ -10,13 +10,13 @@ import { DummyComponent } from './components/dummy/dummy.component';
 const externalLoginOAuth2 = new InjectionToken('externalUrlRedirectResolver');
 
 const routes: Routes = [
-  {
-    path: 'login-oauth2',
-    resolve: {
-      url: externalLoginOAuth2,
-    },
-    component: DummyComponent
-  },
+  // {
+  //   path: 'login-oauth2',
+  //   resolve: {
+  //     url: externalLoginOAuth2,
+  //   },
+  //   component: DummyComponent
+  // },
   {
     path: 'authorized',
     resolve: {
@@ -44,15 +44,15 @@ const routes: Routes = [
 
 @NgModule({
   providers: [
-    {
-      provide: externalLoginOAuth2,
-      useValue: (route: ActivatedRouteSnapshot) => {
-        const externalUrl: string = route.paramMap?.get('externalUrl') ?? '';
-        console.log(`Routing Module for ${externalUrl}`);
-        console.log(route.paramMap);
-        window.open(externalUrl, '_self');
-      }
-    }
+    // {
+    //   provide: externalLoginOAuth2,
+    //   useValue: (route: ActivatedRouteSnapshot) => {
+    //     const externalUrl: string = route.paramMap?.get('externalUrl') ?? '';
+    //     console.log(`Routing Module for ${externalUrl}`);
+    //     console.log(route.paramMap);
+    //     window.open(externalUrl, '_self');
+    //   }
+    // }
   ],
   declarations: [],
   imports: [

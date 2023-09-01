@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 const TOKEN_KEY: string = 'TOKEN_KEY';
 const AUTH_CODE: string = 'AUTH_CODE';
 const AUTH_SERVER_URL: string = environment.tokenhUrl;
+const REDIRECT_URI: string = environment.redirectUri;
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class AuthService {
         .set('client_id', 'list4u-dev')
         .set('client_secret', 'myClientSecretValue')
         .set('code', code)
-        .set('redirect_uri', 'http://localhost:4200/authorized');
+        .set('redirect_uri', `${REDIRECT_URI}/authorized`);
 
       this.httpClient.post<Token>(`${AUTH_SERVER_URL}/oauth2/token`, body, { headers: headers })
         .subscribe({

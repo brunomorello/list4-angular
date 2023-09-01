@@ -3,6 +3,7 @@ export const environment = {
   baseUrl: 'https://list4u.herokuapp.com/api',
   authUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
   tokenhUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
+  redirectUri: 'https://list4u-front.herokuapp.com/'
   // authserver: {
   //   issuer: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
   //   clientId: 'list4u-dev',
