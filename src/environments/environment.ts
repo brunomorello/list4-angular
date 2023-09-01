@@ -9,7 +9,8 @@ export const environment = {
   authUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com/oauth2',
   // tokenhUrl: '/authserver',
   tokenhUrl: 'https://bmo-auth-server-25d7c6b7683d.herokuapp.com',
-  redirectUri: 'http://localhost:4200'
+  // redirectUri: 'http://localhost:4200'
+  redirectUri: 'https://list4u-front.herokuapp.com/'
   // authserver: {
   //   // prod https://bmo-auth-server-25d7c6b7683d.herokuapp.com
   //   issuer: 'http://auth-server:8082',
