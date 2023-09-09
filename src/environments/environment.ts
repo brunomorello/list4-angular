@@ -10,7 +10,7 @@ export const environment = {
   tokenhUrl: '/authserver',
   // tokenhUrl: 'http://authserver:8082',
   redirectUri: 'http://localhost:4200'
-  // redirectUri: 'https://list4u-front.herokuapp.com/'
+  // redirectUri: 'https://list4u-front.herokuapp.com'
 };
 
 /*
