@@ -8,11 +8,20 @@
       "^/backend": "api"
     }
   },
+  // local auth tests
+  // "/authserver/*": {
+  //   "target": "http://localhost:8082/",
+  //   "secure": false,
+  //   "logLevel": "debug",
+  //   "changeOrigin": true,
+  //   "pathRewrite": {
+  //     "^/authserver": ""
+  //   }
   "/authserver/*": {
-    "target": "http://localhost:8082/",
+    "target": "https://bmo-auth-server-25d7c6b7683d.herokuapp.com/",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": false,
+    "changeOrigin": true,
     "pathRewrite": {
       "^/authserver": ""
     }

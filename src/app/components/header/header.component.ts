@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   login(): void {
-    const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=${FRONT_URL}authorized`;
+    const url: string = `${AUTH_SERVER_URL}/authorize?response_type=code&client_id=list4u-dev&scope=openid profile&redirect_uri=${FRONT_URL}/authorized`;
     window.open(url, '_self');
     // this.router.navigate(['/login-oauth2', { externalUrl: url }])
     // .then(() => console.log(`redirected to login page`));
